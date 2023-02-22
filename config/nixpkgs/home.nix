@@ -101,11 +101,30 @@ in
 
   services.mpris-proxy.enable = true;
 
-  home.file.".config/foot".source = config.lib.file.mkOutOfStoreSymlink ./config/foot;
-  home.file.".config/waybar".source = config.lib.file.mkOutOfStoreSymlink ./config/waybar;
-  home.file.".config/wofi".source = config.lib.file.mkOutOfStoreSymlink ./config/wofi;
-  home.file.".config/wal".source = config.lib.file.mkOutOfStoreSymlink ./config/wal;
-  home.file.".config/zathura".source = config.lib.file.mkOutOfStoreSymlink ./config/zathura;
+  home.file.".config/foot" = {
+    source = ./config/foot;
+    recursive = true;
+  };
+
+  home.file.".config/waybar" = {
+    source = ./config/waybar;
+    recursive = true;
+  };
+
+  home.file.".config/wofi" = {
+    source = ./config/wofi;
+    recursive = true;
+  };
+
+  home.file.".config/wal" = {
+    source = ./config/wal;
+    recursive = true;
+  };
+
+  home.file.".config/zathura" = {
+    source = ./config/zathura;
+    recursive = true;
+  };
 
   wayland.windowManager.sway = let
     gsettings = "${pkgs.glib}/bin/gsettings";
