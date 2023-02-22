@@ -47,6 +47,7 @@ in
     foot
     waybar
     wofi
+    sxiv
     wlogout
     pywal
     sway-contrib.grimshot
