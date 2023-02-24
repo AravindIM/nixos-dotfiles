@@ -99,6 +99,12 @@ in
       vim-surround
     ];
   };
+   programs.doom-emacs = {
+     enable = true;
+     doomPrivateDir = ./doom.d;
+   };
+  services.emacs.enable = true;
+
 
   services.mpris-proxy.enable = true;
   services.blueman-applet.enable = true;
