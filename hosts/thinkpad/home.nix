@@ -48,13 +48,6 @@
     recursive = true;
   };
 
-  programs.bash = {
-    enable = true;
-    initExtra = ''
-      wal -Reqn
-    '';
-  };
-
   home.sessionPath = [ "$HOME/.local/bin" ];
 
   home.stateVersion = "22.11";
