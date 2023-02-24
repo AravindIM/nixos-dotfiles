@@ -22,12 +22,6 @@ let
     bright-cyan = "#6ae4b9";
     bright-white = "#ffffff";
   };
-  doom-emacs = pkgs.callPackage (builtins.fetchTarball {
-    url = https://github.com/nix-community/nix-doom-emacs/archive/master.tar.gz;
-  }) {
-    doomPrivateDir = ./doom.d;  # Directory containing your config.el, init.el
-                                # and packages.el files
-  };
 in
 {
   home.username = "aim";
@@ -51,11 +45,17 @@ in
     wlogout
     pywal
     sway-contrib.grimshot
-    doom-emacs
     vlc
     zathura
     gimp
     xournal
+    spotify
+    whatsapp-for-linux
+    bluez
+    mpv
+    fzf
+    nodePackages.peerflix
+    transmission-gtk
   ];
 
   programs.neovim = {
@@ -101,6 +101,7 @@ in
   };
 
   services.mpris-proxy.enable = true;
+  services.blueman-applet.enable = true;
 
   home.file.".config/foot" = {
     source = ./config/foot;
@@ -126,6 +127,8 @@ in
     source = ./config/zathura;
     recursive = true;
   };
+
+  #manual.manpages.enable = false;
 
   wayland.windowManager.sway = let
     gsettings = "${pkgs.glib}/bin/gsettings";
@@ -395,7 +398,6 @@ in
   programs.bash = {
     enable = true;
     initExtra = ''
-      . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
       wal -Reqn
     '';
   };
