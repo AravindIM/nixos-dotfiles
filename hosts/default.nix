@@ -14,6 +14,7 @@
         home-manager.users.${user} = {
           imports = [
             ./thinkpad/home.nix
+            ../modules/user-configs/shells.nix
             ../modules/user-configs/neovim.nix
             ../modules/user-configs/sway.nix
             nix-doom-emacs.hmModule

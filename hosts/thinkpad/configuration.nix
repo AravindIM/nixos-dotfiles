@@ -108,6 +108,8 @@
     isNormalUser = true;
     description = "Aravind I M";
     extraGroups = [ "networkmanager" "wheel" "video" "mlocate"];
+    shell = pkgs.zsh;
+    initialPassword = "password";
     packages = with pkgs; [
       home-manager
       xfce.thunar
@@ -128,6 +130,8 @@
     mlocate
     file
   ];
+
+  environment.pathsToLink = [ "/share/zsh" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
