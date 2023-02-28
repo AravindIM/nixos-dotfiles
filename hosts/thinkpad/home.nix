@@ -12,6 +12,13 @@
     git
     neofetch
     gcc
+    zip
+    unzip
+    unrar
+    bzip2
+    bzip3
+    xz
+    gzip
     vlc
     zathura
     gimp
