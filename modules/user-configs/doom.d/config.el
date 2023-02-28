@@ -154,3 +154,5 @@
 (use-package pyvenv
   :config
   (pyvenv-mode 1))
+
+(setq projectile-project-search-path '("~/Projects"))
