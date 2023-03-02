@@ -42,22 +42,13 @@
     '';
   };
 
-  programs.bash = {
-    enable = true;
-    initExtra = ''
-      wal -Reqn
-    '';
-  };
-
   programs.zoxide = {
     enable = true;
-    enableBashIntegration = true;
     enableZshIntegration = true;
   };
 
   programs.direnv = {
     enable = true;
-    enableBashIntegration = true;
     enableZshIntegration = true;
     nix-direnv.enable = true;
   };
