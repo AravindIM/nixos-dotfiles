@@ -15,6 +15,7 @@
           imports = [
             ./thinkpad/home.nix
             ../modules/desktop/sway/home.nix
+            ../modules/theme/dracula.nix
             doom-emacs.hmModule
           ] ++ (import ../modules/shell)
           ++ (import ../modules/editor);
