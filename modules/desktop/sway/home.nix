@@ -274,15 +274,13 @@ in
           "${modifier}+Control+a" = "exec emacsclient -a '' -c";
           "${modifier}+Alt+b" = "exec firefox";
 
-          "${modifier}+Shift+q" = "exit";
-          "${modifier}+F1" = "exec bash ~/.nixos-config/config/scripts/man";
-          "${modifier}+F2" = "exec bash ~/.nixos-config/config/scripts/websearch";
-          "${modifier}+F3" =
+          "${modifier}+Shift+q" = "exec wlogout";
+          "${modifier}+F1" =
             "exec echo $(sxiv -t -o ~/Pictures/Wallpapers) | xargs wal -i";
 
           "Print" =
             "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save screen ${screenshot_dir}";
-          "${modifier}+Shift+Insert" =
+          "Shift+Print" =
             "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
 
           "Control+Shift+space" = "exec makoctl dismiss -a";

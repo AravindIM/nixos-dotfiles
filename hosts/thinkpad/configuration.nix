@@ -140,8 +140,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-  programs.sway.enable = true;
-  programs.light.enable = true;
 
   # List services that you want to enable:
 
