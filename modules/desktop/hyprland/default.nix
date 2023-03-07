@@ -56,5 +56,5 @@ in
       enable = true;
     };
   };
-  program.light.enable = true;
+  programs.light.enable = true;
 }
