@@ -5,6 +5,25 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ../../programs/waybar.nix ];
+  systemPackages = with pkgs; [
+    fira-code
+    font-awesome
+    wl-clipboard
+    swaylock-effects
+    wlogout
+    wofi
+    foot
+    sxiv
+    wlogout
+    pywal
+    grim
+    slurp
+    swappy
+    wl-clipboard
+    wlr-randr
+  ];
+
   programs.sway.enable = true;
   programs.light.enable = true;
 }
