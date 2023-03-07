@@ -32,7 +32,8 @@ let
   menuCommand = "${pkgs.wofi}/bin/wofi --show=drun -p 'Search'";
   lockCommand = "${pkgs.swaylock-effects}/bin/swaylock -f";
   logoutCommand = "${pkgs.wlogout}/bin/wlogout";
-  screenshotCommand = ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png'';
+  screenshotFile = "~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png";
+  screenshotCommand = ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ${screenshotFile} && notify-send "Saved to ${screenshotFile}'';
   windowRules = ''
     windowrule=float,title:^(Volume Control)$
     windowrule=float,title:^(Picture-in-Picture)$
