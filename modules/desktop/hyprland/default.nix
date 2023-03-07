@@ -1,4 +1,4 @@
-{ config, lib, pkgs, host, ... }:
+{ config, lib, pkgs,... }:
 let
   exec = "exec Hyprland";
 in
@@ -18,7 +18,7 @@ in
       XDG_SESSION_TYPE="wayland";
       XDG_SESSION_DESKTOP="Hyprland";
     };
-    sessionVariables = with host; { 
+    sessionVariables = {
       QT_QPA_PLATFORM = "wayland";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 
