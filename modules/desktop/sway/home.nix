@@ -83,7 +83,7 @@ in
       };
 
       output = {
-        "*".bg = "$(cat /home/aim/.cache/wal/wal) fill";
+        "*".bg = "$(cat $HOME/.cache/wal/wal) fill";
         "*".scale = "1";
       };
 
