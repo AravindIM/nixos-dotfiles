@@ -153,7 +153,6 @@ let
 
     input {
       kb_layout=us
-      kb_options=caps:ctrl_modifier
       follow_mouse=1
       repeat_delay=250
       numlock_by_default=1
