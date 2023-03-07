@@ -68,7 +68,7 @@
 
 
   # Enable the Display Manager.
-  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.startx.enable = true;
 
   # Configure keymap in X11
   services.xserver = {

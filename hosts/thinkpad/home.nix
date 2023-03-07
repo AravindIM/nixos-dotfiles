@@ -39,12 +39,7 @@
     source = ./config/foot;
     recursive = true;
   };
-
-  home.file.".config/waybar" = {
-    source = ./config/waybar;
-    recursive = true;
-  };
-
+  
   home.file.".config/wofi" = {
     source = ./config/wofi;
     recursive = true;
