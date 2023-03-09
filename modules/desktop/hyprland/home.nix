@@ -145,10 +145,10 @@ let
     animations {
       enabled=true
       bezier = myBezier,0.1,0.7,0.1,1.05
-      animation=fade,1,7,default
-      animation=windows,1,7,myBezier
+      animation=fade,1,4,default
+      animation=windows,1,4,myBezier
       animation=windowsOut,1,3,default,popin 60%
-      animation=windowsMove,1,7,myBezier
+      animation=windowsMove,1,4,myBezier
     }
 
     input {
