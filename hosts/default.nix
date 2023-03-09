@@ -16,10 +16,10 @@
           imports = [
             ./thinkpad/home.nix
             ../modules/desktop/hyprland/home.nix
-            ../modules/theme/dracula.nix
+            ../modules/themes/dracula.nix
             doom-emacs.hmModule
           ] ++ (import ../modules/shell)
-          ++ (import ../modules/editor);
+          ++ (import ../modules/editors);
         };
       }
     ] ++ [(import ../modules/desktop/hyprland)];

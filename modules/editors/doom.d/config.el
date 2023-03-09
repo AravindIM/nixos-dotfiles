@@ -153,3 +153,4 @@
   (pyvenv-mode 1))
 
 (setq projectile-project-search-path '("~/Projects"))
+(add-to-list 'projectile-globally-ignored-directories "^.git$")
