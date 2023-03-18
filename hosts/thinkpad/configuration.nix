@@ -129,6 +129,7 @@
     killall
     mlocate
     file
+    python3
   ];
 
   environment.pathsToLink = [ "/share/zsh" ];
