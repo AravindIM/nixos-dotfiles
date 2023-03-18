@@ -111,7 +111,9 @@ let
     bind=,print,exec,${screenshotCommand}"
 
     bind=,XF86AudioLowerVolume,exec,${pkgs.pamixer}/bin/pamixer -d 10
+    bind=SHIFT,XF86AudioLowerVolume,exec,${pkgs.pamixer}/bin/pamixer -d 10 --allow-boost
     bind=,XF86AudioRaiseVolume,exec,${pkgs.pamixer}/bin/pamixer -i 10
+    bind=SHIFT,XF86AudioRaiseVolume,exec,${pkgs.pamixer}/bin/pamixer -i 10 --allow-boost
     bind=,XF86AudioMute,exec,${pkgs.pamixer}/bin/pamixer -t
     bind=,XF86AudioMicMute,exec,${pkgs.pamixer}/bin/pamixer --default-source -t
     bind=,XF86MonBrightnessDown,exec,${pkgs.light}/bin/light -U 5
