@@ -50,6 +50,11 @@
     recursive = true;
   };
 
+  home.file.".config/zathura" = {
+    source = ./config/zathura;
+    recursive = true;
+  };
+
   home.sessionPath = [ "$HOME/.local/bin" ];
 
   home.stateVersion = "22.11";
