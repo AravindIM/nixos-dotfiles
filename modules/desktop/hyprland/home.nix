@@ -24,8 +24,9 @@ let
     exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     exec-once=${pkgs.waybar}/bin/waybar
     exec-once=${pkgs.blueman}/bin/blueman-applet
-      exec-once=${pkgs.swaybg}/bin/swaybg -m fill -i ${wallpaper} 
-      exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
+    exec-once=${pkgs.swaybg}/bin/swaybg -m fill -i ${wallpaper}
+    exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
+    exec-once=${pkgs.swayidle}/bin/swayidle -w timeout 300 'light -O && light -S 0' resume 'light -I' before-sleep '${lockCommand}' timeout 305 '${lockCommand}' timeout 600 'systemctl suspend'
     '';
   terminal = "${pkgs.foot}/bin/foot";
   fileManager = "${pkgs.xfce.thunar}/bin/thunar";
@@ -119,8 +120,6 @@ let
     bind=,XF86MonBrightnessDown,exec,${pkgs.light}/bin/light -U 5
     bind=,XF86MonBrightnessUP,exec,${pkgs.light}/bin/light -A 5
     '';
-in
-let
   hyprlandConf = ''
     ${workspaces}
 
@@ -217,17 +216,17 @@ in
     show-failed-attempts = true;
   };
 
-  services.swayidle = {
-    enable = true;
-    events = [
-      { event = "before-sleep"; command = "${lockCommand}"; }
-      { event = "lock"; command = "${lockCommand}"; }
-    ];
-    timeouts = [
-      { timeout= 300; command = "${lockCommand}";}
-      { timeout= 600; command = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off"; resumeCommand = "${pkgs.hyprland}/bin/hyperctl dispatch dpms on";}
-      { timeout= 1000; command = "systemctl suspend"; resumeCommand = "${pkgs.hyprland}/bin/hyperctl dispatch dpms on";}
-    ];
-    systemdTarget = "xdg-desktop-portal-hyprland.service";
-  };
+  # services.swayidle = {
+  #   enable = true;
+  #   events = [
+  #     { event = "before-sleep"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
+  #     { event = "lock"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
+  #   ];
+  #   timeouts = [
+  #     { timeout= 60; command = "${pkgs.light}/bin/light -O && ${pkgs.light}/bin/light -S 0"; resumeCommand = "${pkgs.light}/bin/light -I";}
+  #     { timeout= 65; command = "${pkgs.swaylock-effects}/bin/swaylock";}
+  #     { timeout= 600; command = "systemctl suspend"; resumeCommand = "${pkgs.light}/bin/light -I";}
+  #   ];
+  #   systemdTarget = "xdg-desktop-portal-hyprland.service";
+  # };
 }

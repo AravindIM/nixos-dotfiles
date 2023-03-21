@@ -30,6 +30,7 @@ in
       fira-code
       font-awesome
       wl-clipboard
+      swayidle
       swaylock-effects
       wlogout
       wofi
