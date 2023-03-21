@@ -4,8 +4,19 @@
 
 { config, pkgs, ... }:
 
+let
+  exec = "exec sway";
+in
 {
   imports = [ ../../programs/waybar.nix ];
+  environment = {
+    loginShellInit = ''
+      if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+        ${exec}
+      fi
+    '';                                   # Will automatically open Hyprland when logged into tty1
+  };
+
   systemPackages = with pkgs; [
     fira-code
     font-awesome
@@ -24,7 +35,19 @@
     wlr-randr
   ];
 
-  programs.sway.enable = true;
-  programs.light.enable = true;
-}
+  programs = {
+    sway = {
+      enable = true;
+      extraPackages = with pkgs; [
 
+      ];
+    };
+
+    light.enable = true;
+  };
+
+  xdg-portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  };
+}
