@@ -130,6 +130,7 @@
     mlocate
     file
     python3
+    nix-index
   ];
 
   environment.pathsToLink = [ "/share/zsh" ];
