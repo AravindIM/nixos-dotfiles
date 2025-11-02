@@ -1,121 +1,151 @@
 { config, lib, pkgs,... }:
 
 let
-  touchpad = ''
-        touchpad {
-          natural_scroll=true
-          middle_button_emulation=true
-          tap-to-click=false
-        }
-      }
-      '';
-  gestures = ''
-      gestures {
-        workspace_swipe=true
-        workspace_swipe_fingers=3
-        workspace_swipe_distance=100
-      }
-    '';
+  mainMod = "ALT";
+  bar = "waybar";
+  xwayland = "xhost +local:";
+  notificationDaemon = "swaync";
+  polkit = "systemctl --user start hyprpolkitagent";
+  clipboardManager = "wl-paste --type text --watch cliphist store";
+  wallpaperPicker = "waypaper";
+  wallpaperDaemon = "swww-daemon";
+  wallpaperRestore = "waypaper --restore";
+  terminal = "${pkgs.alacritty}/bin/alacritty";
+  browser = "${pkgs.firefox}/bin/firefox";
+  filemanager = "${pkgs.xfce.thunar}/bin/thunar";
+  menu = "${pkgs.rofi}/bin/rofi -show combi";
+  lock = "${pkgs.hyprlock}/bin/lock";
+  logout = "${pkgs.wlogout}/bin/wlogout";
+  screenshot = "${pkgs.hyprshot}/bin/hyprshot -m region -z";
+  clipboard = "${pkgs.cliphist}/bin/cliphist list | ${pkgs.rofi}/bin/rofi -dmenu | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy";
+  clipboardClear = "${pkgs.cliphist}/bin/cliphist wipe";
+  menuCommand = "${pkgs.wofi}/bin/wofi --show=drun -p 'Search'";
+  lockCommand = "${pkgs.hyprlock}/bin/hyprlock";
+  logoutCommand = "${pkgs.wlogout}/bin/wlogout";
+  screenshotCommand = ''${pkgs.hyprshot}/bin/hyprshot -m region -z'';
   workspaces = ''
       monitor=,preferred,auto,1
     '';
-  wallpaper="$(cat $HOME/.cache/wal/wal)";
-  execute = ''
-    exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-    exec-once=${pkgs.waybar}/bin/waybar
-    exec-once=${pkgs.blueman}/bin/blueman-applet
-      exec-once=${pkgs.swaybg}/bin/swaybg -m fill -i ${wallpaper} 
-      exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
+  touchpad = ''
+      touchpad {
+        natural_scroll=true
+        middle_button_emulation=true
+        tap-to-click=false
+      }
+      '';
+  gestures = ''
+    gestures {
+      gesture = 3, down, dispatcher, exec, ${menu}
+      gesture = 3, horizontal, workspace
+    }
     '';
-  terminal = "${pkgs.foot}/bin/foot";
-  fileManager = "${pkgs.xfce.thunar}/bin/thunar";
-  menuCommand = "${pkgs.wofi}/bin/wofi --show=drun -p 'Search'";
-  lockCommand = "${pkgs.swaylock-effects}/bin/swaylock -f";
-  logoutCommand = "${pkgs.wlogout}/bin/wlogout";
-  screenshotFile = "~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png";
-  screenshotCommand = ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ${screenshotFile} && notify-send "Saved to ${screenshotFile}'';
+  execute = ''
+    exec-once=dbus-update-activation-environment --systemd --all
+    exec-once=${xwayland}
+    exec-once=xdph
+    exec-once=${polkit}
+    exec-once=${notificationDaemon}
+    exec-once=hypridle
+    exec-once=${clipboardManager}
+    exec-once=${bar}
+    exec-once=blueman-applet
+    exec-once=nm-applet --indicator
+    exec-once=${wallpaperDaemon}
+    exec-once=${wallpaperRestore}
+    '';
   windowRules = ''
     windowrule=float,title:^(Volume Control)$
     windowrule=float,title:^(Picture-in-Picture)$
     windowrule=pin,title:^(Picture-in-Picture)$
     windowrule=move 75% 75% ,title:^(Picture-in-Picture)$
     windowrule=size 24% 24% ,title:^(Picture-in-Picture)$
-    windowrule=opacity 0.93 override 0.8 override,Emacs
-    windowrule=opacity 0.93 override 0.8 override,foot
   '';
   keybindings = ''
-    bindm=SUPER,mouse:272,movewindow
-    bindm=SUPER,mouse:273,resizewindow
-
-    bindm=SUPER,Return,movewindow
-    bind=SUPERSHIFT,Return,exec,${terminal}
-    bind=SUPERSHIFT,C,killactive,
-    bind=SUPERSHIFT,Q,exec,${logoutCommand}
-    bind=SUPERSHIFT,Escape,exec,${lockCommand}
-    bind=SUPERSHIFT,F,exec,${fileManager}
-    bind=SUPER,T,togglefloating,
-    bind=SUPER,P,exec,${menuCommand}
-    bind=SUPERSHIFT,P,pseudo,
-    bind=SUPER,F,fullscreen,
-    bind=SUPER,R,forcerendererreload
-    bind=SUPERSHIFT,R,exec,${pkgs.hyprland}/bin/hyprctl reload
-    bind=SUPERSHIFT,E,exec,${pkgs.emacs}/bin/emacsclient -c
-
-    bind=SUPER,left,movefocus,l
-    bind=SUPER,right,movefocus,r
-    bind=SUPER,up,movefocus,u
-    bind=SUPER,down,movefocus,d
-
-    bind=SUPER,H,movefocus,l
-    bind=SUPER,L,movefocus,r
-    bind=SUPER,K,movefocus,u
-    bind=SUPER,J,movefocus,d
-
-    bind=SUPERSHIFT,left,movewindow,l
-    bind=SUPERSHIFT,right,movewindow,r
-    bind=SUPERSHIFT,up,movewindow,u
-    bind=SUPERSHIFT,down,movewindow,d
-
-    bind=SUPERSHIFT,H,movewindow,l
-    bind=SUPERSHIFT,L,movewindow,r
-    bind=SUPERSHIFT,K,movewindow,u
-    bind=SUPERSHIFT,J,movewindow,d
-
-    bind=SUPER,1,workspace,1
-    bind=SUPER,2,workspace,2
-    bind=SUPER,3,workspace,3
-    bind=SUPER,4,workspace,4
-    bind=SUPER,5,workspace,5
-    bind=SUPER,6,workspace,6
-    bind=SUPER,7,workspace,7
-    bind=SUPER,8,workspace,8
-    bind=SUPER,9,workspace,9
-    bind=SUPER,0,workspace,10
-
-    bind=SUPERSHIFT,1,movetoworkspace,1
-    bind=SUPERSHIFT,2,movetoworkspace,2
-    bind=SUPERSHIFT,3,movetoworkspace,3
-    bind=SUPERSHIFT,4,movetoworkspace,4
-    bind=SUPERSHIFT,5,movetoworkspace,5
-    bind=SUPERSHIFT,6,movetoworkspace,6
-    bind=SUPERSHIFT,7,movetoworkspace,7
-    bind=SUPERSHIFT,8,movetoworkspace,8
-    bind=SUPERSHIFT,9,movetoworkspace,9
-    bind=SUPERSHIFT,0,movetoworkspace,10
-
-    bind=CTRL,right,resizeactive,20 0
-    bind=CTRL,left,resizeactive,-20 0
-    bind=CTRL,up,resizeactive,0 -20
-    bind=CTRL,down,resizeactive,0 20
-
-    bind=,print,exec,${screenshotCommand}"
-
-    bind=,XF86AudioLowerVolume,exec,${pkgs.pamixer}/bin/pamixer -d 10
-    bind=,XF86AudioRaiseVolume,exec,${pkgs.pamixer}/bin/pamixer -i 10
-    bind=,XF86AudioMute,exec,${pkgs.pamixer}/bin/pamixer -t
-    bind=,XF86AudioMicMute,exec,${pkgs.pamixer}/bin/pamixer --default-source -t
-    bind=,XF86MonBrightnessDown,exec,${pkgs.light}/bin/light -U 5
-    bind=,XF86MonBrightnessUP,exec,${pkgs.light}/bin/light -A 5
+    bindm=${mainMod},mouse:272,movewindow
+    bindm=${mainMod},mouse:273,resizewindow
+    
+    bind=${mainMod},Return,exec,${terminal}
+    bind=${mainMod},Q,killactive,
+    bind=${mainMod} SHIFT,Q,exec,${logout}
+    bind=${mainMod},X,exec,${lock}
+    bind=${mainMod},P,exec,${menu}
+    bind=${mainMod},V,exec,${clipboard}
+    bind=${mainMod} CTRL,V,exec,${clipboardClear}
+    bind=${mainMod} SHIFT,W,exec,${wallpaperPicker}
+    bind=${mainMod} SHIFT,F,exec,${filemanager}
+    bind=${mainMod} SHIFT,B,exec,${browser}
+    
+    bind=${mainMod} SHIFT,P,pseudo,
+    bind=${mainMod},F,fullscreen,
+    bind=${mainMod},R,forcerendererreload
+    bind=${mainMod} SHIFT,R,exec,hyprctl reload
+    bind=${mainMod},T,togglefloating,
+    bind=${mainMod} SHIFT,T,fullscreen,1
+    
+    bind=${mainMod},left,movefocus,l
+    bind=${mainMod},right,movefocus,r
+    bind=${mainMod},up,movefocus,u
+    bind=${mainMod},down,movefocus,d
+    
+    bind=${mainMod},H,movefocus,l
+    bind=${mainMod},L,movefocus,r
+    bind=${mainMod},K,movefocus,u
+    bind=${mainMod},J,movefocus,d
+    
+    bind=${mainMod} SHIFT,left,movewindow,l
+    bind=${mainMod} SHIFT,right,movewindow,r
+    bind=${mainMod} SHIFT,up,movewindow,u
+    bind=${mainMod} SHIFT,down,movewindow,d
+    
+    bind=${mainMod} SHIFT,H,movewindow,l
+    bind=${mainMod} SHIFT,L,movewindow,r
+    bind=${mainMod} SHIFT,K,movewindow,u
+    bind=${mainMod} SHIFT,J,movewindow,d
+    
+    bind=${mainMod},SPACE,togglesplit
+    
+    bind=${mainMod},1,workspace,1
+    bind=${mainMod},2,workspace,2
+    bind=${mainMod},3,workspace,3
+    bind=${mainMod},4,workspace,4
+    bind=${mainMod},5,workspace,5
+    bind=${mainMod},6,workspace,6
+    bind=${mainMod},7,workspace,7
+    bind=${mainMod},8,workspace,8
+    bind=${mainMod},9,workspace,9
+    bind=${mainMod},0,workspace,10
+    
+    bind=${mainMod} SHIFT,1,movetoworkspace,1
+    bind=${mainMod} SHIFT,2,movetoworkspace,2
+    bind=${mainMod} SHIFT,3,movetoworkspace,3
+    bind=${mainMod} SHIFT,4,movetoworkspace,4
+    bind=${mainMod} SHIFT,5,movetoworkspace,5
+    bind=${mainMod} SHIFT,6,movetoworkspace,6
+    bind=${mainMod} SHIFT,7,movetoworkspace,7
+    bind=${mainMod} SHIFT,8,movetoworkspace,8
+    bind=${mainMod} SHIFT,9,movetoworkspace,9
+    bind=${mainMod} SHIFT,0,movetoworkspace,10
+    
+    bind=${mainMod} CTRL,right,resizeactive,20 0
+    bind=${mainMod} CTRL,left,resizeactive,-20 0
+    bind=${mainMod} CTRL,up,resizeactive,0 -20
+    bind=${mainMod} CTRL,down,resizeactive,0 20
+    
+    bind=${mainMod} CTRL,l,resizeactive,20 0
+    bind=${mainMod} CTRL,h,resizeactive,-20 0
+    bind=${mainMod} CTRL,k,resizeactive,0 -20
+    bind=${mainMod} CTRL,j,resizeactive,0 20
+    
+    bind=,PRINT,exec,${screenshot}
+    
+    bind=,XF86AudioLowerVolume,exec,pamixer -d 10
+    bind=,XF86AudioRaiseVolume,exec,pamixer -i 10
+    bind=SHIFT,XF86AudioLowerVolume,exec,pamixer -d 10 --allow-boost
+    bind=SHIFT,XF86AudioRaiseVolume,exec,pamixer -i 10 --allow-boost
+    bind=,XF86AudioMute,exec,pamixer -t
+    bind=,XF86AudioMicMute,exec,pamixer --default-source -t
+    bind=,XF86MonBrightnessDown,exec,light -U 5
+    bind=,XF86MonBrightnessUP,exec,light -A 5
     '';
 in
 let
@@ -123,37 +153,36 @@ let
     ${workspaces}
 
     general {
-      # main_mod=SUPER
-      border_size=3
-      gaps_in=5
-      gaps_out=7
-      col.active_border=0x80ffffff
-      col.inactive_border=0x66333333
+      border_size=2
+      gaps_in=0
+      gaps_out=0
+      col.active_border=rgba($fgee)
+      col.inactive_border=rgba($fg4aa)
       layout=dwindle
     }
 
+    misc {
+      disable_hyprland_logo=true
+      disable_splash_rendering=true
+      font_family=Jetbrains Mono Nerd Font
+      vrr=true
+      enable_swallow=true
+      swallow_regex = ^(Alacritty|kitty|footclient)$
+    }
+    
     decoration {
-      rounding=5
-      multisample_edges=true
       active_opacity=1
       inactive_opacity=0.93
       fullscreen_opacity=1
-      blur=true
-      drop_shadow=false
+    }
+    
+    animations {
+      enabled=false
     }
 
-    animations {
-      enabled=true
-      bezier = myBezier,0.1,0.7,0.1,1.05
-      animation=fade,1,7,default
-      animation=windows,1,7,myBezier
-      animation=windowsOut,1,3,default,popin 60%
-      animation=windowsMove,1,7,myBezier
-    }
 
     input {
       kb_layout=us
-      kb_options=caps:ctrl_modifier
       follow_mouse=1
       repeat_delay=250
       numlock_by_default=1
@@ -186,47 +215,6 @@ in
   home.packages = with pkgs; [
   ];
 
-  programs.swaylock.settings = {
-    image = "${wallpaper}";
-    color = "000000f0";
-    font-size = "24";
-    clock = true;
-    effect-blur = "12x4";
-    ignore-empty-password = true;
-    indicator-idle-visible = true;
-    indicator-caps-lock = true;
-    indicator-radius = 100;
-    indicator-thickness = 20;
-    inside-color = "00000000";
-    inside-clear-color = "00000000";
-    inside-ver-color = "00000000";
-    inside-wrong-color = "00000000";
-    key-hl-color = "79b360";
-    line-color = "000000f0";
-    line-clear-color = "000000f0";
-    line-ver-color = "000000f0";
-    line-wrong-color = "000000f0";
-    ring-color = "ffffff50";
-    ring-clear-color = "bbbbbb50";
-    ring-ver-color = "bbbbbb50";
-    ring-wrong-color = "b3606050";
-    text-color = "ffffff";
-    text-ver-color = "ffffff";
-    text-wrong-color = "ffffff";
-    show-failed-attempts = true;
-  };
-
-  services.swayidle = {
-    enable = true;
-    events = [
-      { event = "before-sleep"; command = "${lockCommand}"; }
-      { event = "lock"; command = "${lockCommand}"; }
-    ];
-    timeouts = [
-      { timeout= 300; command = "${lockCommand}";}
-      { timeout= 600; command = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off"; resumeCommand = "${pkgs.hyprland}/bin/hyperctl dispatch dpms on";}
-      { timeout= 1000; command = "systemctl suspend"; resumeCommand = "${pkgs.hyprland}/bin/hyperctl dispatch dpms on";}
-    ];
-    systemdTarget = "xdg-desktop-portal-hyprland.service";
+  programs.hyprlock.settings = {
   };
 }

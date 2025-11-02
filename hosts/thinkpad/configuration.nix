@@ -116,7 +116,6 @@
       gnome.adwaita-icon-theme
       firefox
       libreoffice
-      swaylock-effects
     #  thunderbird
     ];
   };

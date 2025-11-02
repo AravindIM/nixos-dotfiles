@@ -6,7 +6,6 @@
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
-    fira-code
     rename
     htop
     git
@@ -42,11 +41,6 @@
   
   home.file.".config/wofi" = {
     source = ./config/wofi;
-    recursive = true;
-  };
-
-  home.file.".config/wal" = {
-    source = ./config/wal;
     recursive = true;
   };
 

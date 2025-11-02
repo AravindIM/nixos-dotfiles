@@ -3,7 +3,12 @@ let
   exec = "exec Hyprland";
 in
 {
-  imports = [ ../../programs/waybar.nix ];
+  imports = [
+    ../../programs/waybar/waybar.nix
+    ../../programs/rofi/rofi.nix
+    ../../programs/alacritty/alacritty.nix
+    ../../programs/hyprlock/hyprlock.nix
+  ];
   environment = {
     loginShellInit = ''
       if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
@@ -20,6 +25,8 @@ in
     };
     sessionVariables = {
       QT_QPA_PLATFORM = "wayland";
+      QT_QPA_PLATFORMTHEME = "gtk3";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 
       GDK_BACKEND = "wayland";
@@ -27,28 +34,23 @@ in
       MOZ_ENABLE_WAYLAND = "1";
     };
     systemPackages = with pkgs; [
-      fira-code
+      nerd-fonts.departure-mono
       font-awesome
       wl-clipboard
-      swaylock-effects
       wlogout
-      wofi
-      foot
       sxiv
-      wlogout
-      pywal
-      grim
-      slurp
-      swappy
+      hyprshot
       wl-clipboard
-      wlr-randr
+      wdisplays
+      cliphist
+      waypaper
+      hyprpolkitagent
+      hyprutils
+      waypaper
+      swww
+      hyprcursor
+      hyprland-protocols
     ];
-  };
-
-  security.pam.services.swaylock = {
-    text = ''
-     auth include login
-    '';
   };
 
   programs = {

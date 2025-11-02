@@ -4,7 +4,6 @@
   programs.bash = {
     enable = true;
     initExtra = ''
-      wal -Reqn
     '';
   };
 

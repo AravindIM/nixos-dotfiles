@@ -3,7 +3,7 @@
 {
   thinkpad = lib.nixosSystem {
     inherit system;
-    specialArgs = { inherit user inputs doom-emacs hyprland;};
+    specialArgs = { inherit user inputs nvim  hyprland;};
     modules = [
       hyprland.nixosModules.default
       ./thinkpad/configuration.nix
@@ -16,7 +16,7 @@
           imports = [
             ./thinkpad/home.nix
             ../modules/desktop/hyprland/home.nix
-            ../modules/theme/dracula.nix
+            ../modules/theme/gruvbox.nix
             doom-emacs.hmModule
           ] ++ (import ../modules/shell)
           ++ (import ../modules/editor);

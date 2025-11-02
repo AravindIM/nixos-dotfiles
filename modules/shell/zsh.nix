@@ -27,18 +27,7 @@
       ];
     };
 
-    oh-my-zsh = {
-      enable = true;
-      custom = "$HOME/.oh-my-zsh/custom";
-      plugins = [
-        "git"
-        "colored-man-pages"
-      ];
-      theme = "gentoo";
-    };
-
     initExtra = ''
-      wal -Reqn
     '';
   };
 
