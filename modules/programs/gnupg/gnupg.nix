@@ -3,8 +3,8 @@
 {
   services.gpg-agent = {
     enable = true;
-    enableSshSupport = true;
-    pinentry.package = pkgs.pinentry-gnome3; # or pkgs.pinentry-qt / pkgs.pinentry-curses / pkgs.pinentry-tty
+    # enableSshSupport = true;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
   home.packages = with pkgs; [
     gnupg
