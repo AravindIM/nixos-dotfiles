@@ -119,7 +119,6 @@
         packages = with pkgs; [
           xfce.thunar
           adwaita-icon-theme
-          firefox
           zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
           libreoffice
           thunderbird
