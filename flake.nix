@@ -7,11 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    doom-emacs.url = "github:nix-community/nix-doom-emacs";
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, doom-emacs, hyprland, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, hyprland, ... }:
     let
       system = "x86_64-linux";
       user = "aim";
@@ -24,7 +23,7 @@
       nixosConfigurations = (
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs user system home-manager doom-emacs hyprland;
+          inherit inputs user system home-manager hyprland;
         }
       );
     };

@@ -8,66 +8,92 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        enableCryptodisk = true;
+      };
+    };
+
+    kernelPackages = pkgs.linuxPackages_latest;
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+      kernelModules = [ "dm-snapshot" "cryptd"];
+      luks.devices = {
+        cryptroot = {
+          device = "/dev/disk/by-uuid/11455285-339e-41d6-8ce3-5cb81c8dbcc8";
+        };
+      };
+    };
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+    supportedFilesystems = [ "btrfs" ];
+  };
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/NixOS-Root";
       fsType = "btrfs";
-      options = [ "subvol=@" "compress=zstd" "noatime" "nodiratime"];
+      options = [ "defaults" "x-mount.mkdir" "compress=zstd" "ssd" "noatime" "nodiratime" "discard=async" "space_cache=v2" "commit=120" "subvol=@" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/NixOS-Root";
       fsType = "btrfs";
-      options = [ "subvol=@home" "compress=zstd" "noatime" "nodiratime"];
+      options = [ "defaults" "x-mount.mkdir" "compress=zstd" "ssd" "noatime" "nodiratime" "discard=async" "space_cache=v2" "commit=120" "subvol=@home" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/NixOS-Root";
       fsType = "btrfs";
-      options = [ "subvol=@nix" "compress=zstd" "noatime" "nodiratime"];
+      options = [ "defaults" "x-mount.mkdir" "compress=zstd" "ssd" "noatime" "nodiratime" "discard=async" "space_cache=v2" "commit=120" "subvol=@nix" ];
     };
 
   fileSystems."/persist" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/NixOS-Root";
       fsType = "btrfs";
       options = [ "subvol=@persist" "compress=zstd" "noatime" "nodiratime"];
     };
 
-  fileSystems."/var" =
-    { device = "/dev/disk/by-label/root";
+  fileSystems."/var/log" =
+    {
+      device = "/dev/disk/by-label/NixOS-Root";
       fsType = "btrfs";
-      options = [ "subvol=@var" "compress=zstd" "noatime" "nodiratime"];
+      options = [ "defaults" "x-mount.mkdir" "compress=zstd" "ssd" "noatime" "nodiratime" "discard=async" "space_cache=v2" "commit=120" "subvol=@varlog" ];
     };
 
   fileSystems."/tmp" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/NixOS-Root";
       fsType = "btrfs";
-      options = [ "subvol=@tmp" "compress=zstd" "noatime" "nodiratime"];
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/root";
-      fsType = "btrfs";
-      options = [ "subvol=@boot" "compress=zstd" "noatime" "nodiratime"];
+      options = [ "defaults" "x-mount.mkdir" "compress=zstd" "ssd" "noatime" "nodiratime" "discard=async" "space_cache=v2" "commit=120" "subvol=@tmp" ];
     };
 
   fileSystems."/.snapshots" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/NixOS-Root";
       fsType = "btrfs";
       options = [ "subvol=@snapshots" "compress=zstd" "noatime" "nodiratime"];
     };
 
   fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-label/boot";
+    {
+      device = "/dev/disk/by-label/NixOS-Boot";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
+    [ { device = "/dev/disk/by-label/NixOS-Swap"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

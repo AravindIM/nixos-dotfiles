@@ -1,6 +1,7 @@
 { config, lib, pkgs,... }:
 
 let
+  themeFile = "gruvbox-dark.conf";
   mainMod = "ALT";
   bar = "waybar";
   xwayland = "xhost +local:";
@@ -14,17 +15,13 @@ let
   browser = "${pkgs.firefox}/bin/firefox";
   filemanager = "${pkgs.xfce.thunar}/bin/thunar";
   menu = "${pkgs.rofi}/bin/rofi -show combi";
-  lock = "${pkgs.hyprlock}/bin/lock";
+  lock = "${pkgs.hyprlock}/bin/hyprlock";
   logout = "${pkgs.wlogout}/bin/wlogout";
   screenshot = "${pkgs.hyprshot}/bin/hyprshot -m region -z";
   clipboard = "${pkgs.cliphist}/bin/cliphist list | ${pkgs.rofi}/bin/rofi -dmenu | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy";
   clipboardClear = "${pkgs.cliphist}/bin/cliphist wipe";
-  menuCommand = "${pkgs.wofi}/bin/wofi --show=drun -p 'Search'";
-  lockCommand = "${pkgs.hyprlock}/bin/hyprlock";
-  logoutCommand = "${pkgs.wlogout}/bin/wlogout";
-  screenshotCommand = ''${pkgs.hyprshot}/bin/hyprshot -m region -z'';
   workspaces = ''
-      monitor=,preferred,auto,1
+      monitor=,preferred,auto,1.25
     '';
   touchpad = ''
       touchpad {
@@ -150,6 +147,8 @@ let
 in
 let
   hyprlandConf = ''
+    source = ${themeFile}
+
     ${workspaces}
 
     general {
@@ -210,11 +209,21 @@ let
   '';
 in
 {
+  imports = [
+    ../../programs/waybar/waybar.nix
+    ../../programs/rofi/rofi.nix
+    ../../programs/alacritty/alacritty.nix
+    ../../programs/hyprlock/hyprlock.nix
+  ];
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConf;
 
   home.packages = with pkgs; [
+    pamixer
+    light
   ];
 
   programs.hyprlock.settings = {
   };
+
+  xdg.configFile."hypr/gruvbox-dark.conf".source = ./gruvbox-dark.conf;
 }

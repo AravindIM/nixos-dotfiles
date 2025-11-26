@@ -1,9 +1,9 @@
-{ lib, inputs, system, home-manager, user, doom-emacs, hyprland, ... }:
+{ lib, inputs, system, home-manager, user, hyprland, ... }:
 
 {
   thinkpad = lib.nixosSystem {
     inherit system;
-    specialArgs = { inherit user inputs nvim  hyprland;};
+    specialArgs = { inherit user inputs hyprland;};
     modules = [
       hyprland.nixosModules.default
       ./thinkpad/configuration.nix
@@ -11,13 +11,13 @@
       home-manager.nixosModules.home-manager {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = { inherit user doom-emacs hyprland;};
+        home-manager.extraSpecialArgs = { inherit user hyprland;};
         home-manager.users.${user} = {
           imports = [
             ./thinkpad/home.nix
             ../modules/desktop/hyprland/home.nix
             ../modules/theme/gruvbox.nix
-            doom-emacs.hmModule
+            ../modules/programs/gnupg/gnupg.nix
           ] ++ (import ../modules/shell)
           ++ (import ../modules/editor);
         };

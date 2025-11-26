@@ -12,23 +12,9 @@
       ./hardware-configuration.nix
     ];
 
-  boot.supportedFilesystems = [ "btrfs" ];
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.initrd.luks.devices = {
-      root = {
-        device = "/dev/disk/by-label/cryptroot";
-        preLVM = true;
-      };
-  };
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "thinkpad"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -63,6 +49,12 @@
     LC_TIME = "en_IN";
   };
 
+  # Enable homed service to manage user profile
+  services.homed.enable = true;
+
+  # Silence any warnings from non regular users
+  services.userdbd.silenceHighSystemUsers = true;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -72,8 +64,10 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
   };
 
   # Enable CUPS to print documents.
@@ -84,8 +78,8 @@
   services.blueman.enable = true;
 
   # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  # sound.enable = true;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -98,6 +92,10 @@
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
+  };
+
+  programs.zsh = {
+    enable = true;
   };
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -113,7 +111,7 @@
     packages = with pkgs; [
       home-manager
       xfce.thunar
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
       firefox
       libreoffice
     #  thunderbird
@@ -165,7 +163,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "unstable"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 
 }
 
