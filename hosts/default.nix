@@ -50,6 +50,7 @@
               ".gnupg"
               ".ssh"
               ".zen"
+              ".config/waypaper/config.ini"
               "Documents"
               "Downloads"
               "Music"
