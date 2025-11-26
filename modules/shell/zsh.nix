@@ -1,11 +1,14 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ../programs/starship/starship.nix
+  ];
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     history = {
       extended = true;
       size = 1000;
@@ -20,7 +23,7 @@
       vi = "nvim";
     };
 
-    initExtra = ''
+    initContent = ''
       # Don't slow the zsh if not interactively run
       [[ $- != *i* ]] && return
 
@@ -55,11 +58,6 @@
       # Load .envrc if exists
       [ -s "$HOME/.envrc" ] && . "$HOME/.envrc"
     '';
-  };
-
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
   };
 
   programs.zoxide = {

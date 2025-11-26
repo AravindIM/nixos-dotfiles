@@ -5,7 +5,9 @@
     enable = true;
 
     settings = {
-      import = [ "${config.xdg.configHome}/alacritty/gruvbox_dark.toml" ];
+      general = {
+        import = [ "${config.xdg.configHome}/alacritty/gruvbox_dark.toml" ];
+      };
 
       font = {
         normal = {

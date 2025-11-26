@@ -4,10 +4,6 @@ let
 in
 {
   imports = [
-    ../../programs/waybar/waybar.nix
-    ../../programs/rofi/rofi.nix
-    ../../programs/alacritty/alacritty.nix
-    ../../programs/hyprlock/hyprlock.nix
   ];
   environment = {
     loginShellInit = ''
@@ -50,6 +46,7 @@ in
       swww
       hyprcursor
       hyprland-protocols
+      networkmanagerapplet
     ];
   };
 
@@ -58,5 +55,5 @@ in
       enable = true;
     };
   };
-  program.light.enable = true;
+  programs.light.enable = true;
 }

@@ -3,8 +3,6 @@
   home.username = "aim";
   home.homeDirectory = "/home/aim";
 
-  nixpkgs.config.allowUnfree = true;
-
   home.packages = with pkgs; [
     rename
     htop
@@ -21,16 +19,11 @@
     vlc
     zathura
     gimp
-    xournal
     spotify
-    whatsapp-for-linux
     bluez
     mpv
-    fzf
-    nodePackages.peerflix
-    transmission-gtk
   ];
-
+  
   services.mpris-proxy.enable = true;
   services.blueman-applet.enable = true;
 
