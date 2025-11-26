@@ -50,7 +50,7 @@
               ".gnupg"
               ".ssh"
               ".zen"
-              ".config/waypaper/config.ini"
+              ".cache/nvim"
               "Documents"
               "Downloads"
               "Music"
@@ -60,6 +60,9 @@
             ];
             files = [
               ".gitconfig"
+              ".config/waypaper/config.ini"
+              ".config/nvim/lazy-lock.json"
+              ".local/share/zsh/history"
             ];
           };
         };
