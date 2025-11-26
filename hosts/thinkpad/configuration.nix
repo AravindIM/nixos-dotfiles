@@ -50,7 +50,7 @@
   };
 
   # Enable homed service to manage user profile
-  services.homed.enable = true;
+  # services.homed.enable = true;
 
   # Silence any warnings from non regular users
   services.userdbd.silenceHighSystemUsers = true;
@@ -94,6 +94,8 @@
     #media-session.enable = true;
   };
 
+  programs.fuse.userAllowOther = true;
+
   programs.zsh = {
     enable = true;
   };
@@ -101,21 +103,32 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.groups.mlocate = {};
-  users.users.aim = {
-    isNormalUser = true;
-    description = "Aravind I M";
-    extraGroups = [ "networkmanager" "wheel" "video" "mlocate"];
-    shell = pkgs.zsh;
-    initialPassword = "password";
-    packages = with pkgs; [
-      home-manager
-      xfce.thunar
-      adwaita-icon-theme
-      firefox
-      libreoffice
-    #  thunderbird
-    ];
+  users = {
+    mutableUsers = false;
+    groups = {
+      mlocate = {};
+    };
+    users = {
+      aim = {
+        isNormalUser = true;
+        description = "Aravind I M";
+        hashedPasswordFile = "/persist/passwords/aim";
+        extraGroups = [ "networkmanager" "wheel" "video" "mlocate"];
+        shell = pkgs.zsh;
+	createHome = true;
+        packages = with pkgs; [
+          xfce.thunar
+          adwaita-icon-theme
+          firefox
+          libreoffice
+          thunderbird
+        ];
+      };
+      root = {
+        hashedPasswordFile = "/persist/passwords/root";
+        shell = pkgs.zsh;
+      };
+    };
   };
 
   # List packages installed in system profile. To search, run:

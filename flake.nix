@@ -7,10 +7,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence.url = "github:nix-community/impermanence";
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, hyprland, ... }:
+  outputs = inputs @ { self, nixpkgs, impermanence, home-manager, hyprland, ... }:
     let
       system = "x86_64-linux";
       user = "aim";
@@ -23,7 +24,7 @@
       nixosConfigurations = (
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs user system home-manager hyprland;
+          inherit inputs user system impermanence home-manager hyprland;
         }
       );
     };
