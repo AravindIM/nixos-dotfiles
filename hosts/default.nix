@@ -49,6 +49,7 @@
             directories = [
               ".gnupg"
               ".ssh"
+              ".zen"
               "Documents"
               "Downloads"
               "Music"
