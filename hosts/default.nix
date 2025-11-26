@@ -1,9 +1,9 @@
-{ lib, inputs, system, impermanence, home-manager, user, hyprland, ... }:
+{ lib, inputs, system, impermanence, home-manager, user, hyprland, zen-browser, ... }:
 
 {
   thinkpad = lib.nixosSystem {
     inherit system;
-    specialArgs = { inherit user inputs hyprland impermanence;};
+    specialArgs = { inherit user inputs hyprland impermanence zen-browser;};
     modules = [
       impermanence.nixosModules.impermanence {
         environment.persistence."/persist" = {

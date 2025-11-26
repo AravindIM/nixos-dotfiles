@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, zen-browser, ... }:
 
 {
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -120,6 +120,7 @@
           xfce.thunar
           adwaita-icon-theme
           firefox
+          zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
           libreoffice
           thunderbird
         ];

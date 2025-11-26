@@ -8,10 +8,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = inputs @ { self, nixpkgs, impermanence, home-manager, hyprland, ... }:
+  outputs = inputs @ { self, nixpkgs, impermanence, home-manager, hyprland, zen-browser, ... }:
     let
       system = "x86_64-linux";
       user = "aim";
@@ -24,7 +25,7 @@
       nixosConfigurations = (
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs user system impermanence home-manager hyprland;
+          inherit inputs user system impermanence home-manager hyprland zen-browser;
         }
       );
     };
