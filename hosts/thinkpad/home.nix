@@ -10,6 +10,7 @@
     neofetch
     gcc
     go
+    nodejs
     zip
     unzip
     unrar
