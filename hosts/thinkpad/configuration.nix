@@ -49,18 +49,8 @@
     LC_TIME = "en_IN";
   };
 
-  # Enable homed service to manage user profile
-  # services.homed.enable = true;
-
-  # Silence any warnings from non regular users
-  services.userdbd.silenceHighSystemUsers = true;
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
-
-  # Enable the Display Manager.
-  services.xserver.displayManager.startx.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -99,6 +89,23 @@
   programs.zsh = {
     enable = true;
   };
+
+  services.greetd = {
+    enable = true;
+    useTextGreeter = true;
+
+    settings = {
+      terminal = {
+        vt = 1;
+      };
+
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --asterisks --remember --remember-user-session --user-menu";
+        user = "greeter";
+      };
+    };
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -139,6 +146,7 @@
     killall
     mlocate
     file
+    tuigreet
   ];
 
   environment.pathsToLink = [ "/share/zsh" ];
