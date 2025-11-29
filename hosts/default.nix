@@ -51,6 +51,7 @@
               ".ssh"
               ".zen"
               ".cache/nvim"
+              ".local/share/nvim"
               "Documents"
               "Downloads"
               "Music"
