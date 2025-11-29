@@ -9,6 +9,7 @@
     git
     neofetch
     gcc
+    go
     zip
     unzip
     unrar
