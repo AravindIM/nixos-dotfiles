@@ -100,7 +100,7 @@
       };
 
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --asterisks --remember --remember-user-session --user-menu";
+        command = "${pkgs.tuigreet}/bin/tuigreet --asterisks --remember --remember-user-session --user-menu";
         user = "greeter";
       };
     };
