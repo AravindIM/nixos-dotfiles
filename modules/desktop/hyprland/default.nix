@@ -1,7 +1,4 @@
 { config, lib, pkgs,... }:
-let
-  exec = "exec Hyprland";
-in
 {
   imports = [
   ];
@@ -22,6 +19,11 @@ in
       GDK_BACKEND = "wayland";
       WLR_NO_HARDWARE_CURSORS = "1";
       MOZ_ENABLE_WAYLAND = "1";
+
+      HYPRCURSOR_THEME = "Adwaita";
+      HYPRCURSOR_SIZE = "24";
+      XCURSOR_THEME = "Adwaita";
+      XCURSOR_SIZE = "24";
     };
     systemPackages = with pkgs; [
       nerd-fonts.departure-mono
