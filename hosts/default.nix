@@ -59,6 +59,7 @@
               "Videos"
             ];
             files = [
+              ".wallpaper.jpg"
               ".gitconfig"
               ".config/waypaper/config.ini"
               ".config/nvim/lazy-lock.json"
