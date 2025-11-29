@@ -60,7 +60,7 @@ let
   keybindings = ''
     bindm=${mainMod},mouse:272,movewindow
     bindm=${mainMod},mouse:273,resizewindow
-    
+
     bind=${mainMod},Return,exec,${terminal}
     bind=${mainMod},Q,killactive,
     bind=${mainMod} SHIFT,Q,exec,${logout}
@@ -71,36 +71,36 @@ let
     bind=${mainMod} SHIFT,W,exec,${wallpaperPicker}
     bind=${mainMod} SHIFT,F,exec,${filemanager}
     bind=${mainMod} SHIFT,B,exec,${browser}
-    
+
     bind=${mainMod} SHIFT,P,pseudo,
     bind=${mainMod},F,fullscreen,
     bind=${mainMod},R,forcerendererreload
     bind=${mainMod} SHIFT,R,exec,hyprctl reload
     bind=${mainMod},T,togglefloating,
     bind=${mainMod} SHIFT,T,fullscreen,1
-    
+
     bind=${mainMod},left,movefocus,l
     bind=${mainMod},right,movefocus,r
     bind=${mainMod},up,movefocus,u
     bind=${mainMod},down,movefocus,d
-    
+
     bind=${mainMod},H,movefocus,l
     bind=${mainMod},L,movefocus,r
     bind=${mainMod},K,movefocus,u
     bind=${mainMod},J,movefocus,d
-    
+
     bind=${mainMod} SHIFT,left,movewindow,l
     bind=${mainMod} SHIFT,right,movewindow,r
     bind=${mainMod} SHIFT,up,movewindow,u
     bind=${mainMod} SHIFT,down,movewindow,d
-    
+
     bind=${mainMod} SHIFT,H,movewindow,l
     bind=${mainMod} SHIFT,L,movewindow,r
     bind=${mainMod} SHIFT,K,movewindow,u
     bind=${mainMod} SHIFT,J,movewindow,d
-    
+
     bind=${mainMod},SPACE,togglesplit
-    
+
     bind=${mainMod},1,workspace,1
     bind=${mainMod},2,workspace,2
     bind=${mainMod},3,workspace,3
@@ -111,7 +111,7 @@ let
     bind=${mainMod},8,workspace,8
     bind=${mainMod},9,workspace,9
     bind=${mainMod},0,workspace,10
-    
+
     bind=${mainMod} SHIFT,1,movetoworkspace,1
     bind=${mainMod} SHIFT,2,movetoworkspace,2
     bind=${mainMod} SHIFT,3,movetoworkspace,3
@@ -122,19 +122,19 @@ let
     bind=${mainMod} SHIFT,8,movetoworkspace,8
     bind=${mainMod} SHIFT,9,movetoworkspace,9
     bind=${mainMod} SHIFT,0,movetoworkspace,10
-    
+
     bind=${mainMod} CTRL,right,resizeactive,20 0
     bind=${mainMod} CTRL,left,resizeactive,-20 0
     bind=${mainMod} CTRL,up,resizeactive,0 -20
     bind=${mainMod} CTRL,down,resizeactive,0 20
-    
+
     bind=${mainMod} CTRL,l,resizeactive,20 0
     bind=${mainMod} CTRL,h,resizeactive,-20 0
     bind=${mainMod} CTRL,k,resizeactive,0 -20
     bind=${mainMod} CTRL,j,resizeactive,0 20
-    
+
     bind=,PRINT,exec,${screenshot}
-    
+
     bind=,XF86AudioLowerVolume,exec,pamixer -d 10
     bind=,XF86AudioRaiseVolume,exec,pamixer -i 10
     bind=SHIFT,XF86AudioLowerVolume,exec,pamixer -d 10 --allow-boost
@@ -168,13 +168,17 @@ let
       enable_swallow=true
       swallow_regex = ^(Alacritty|kitty|footclient)$
     }
-    
+
+    ecosystem {
+      no_update_news = true
+    }
+
     decoration {
       active_opacity=1
       inactive_opacity=0.93
       fullscreen_opacity=1
     }
-    
+
     animations {
       enabled=false
     }
