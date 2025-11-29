@@ -18,9 +18,23 @@
       package = pkgs.gruvbox-dark-icons-gtk;
     };
 
+    cursorTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+      size = 24;
+    };
+
     font = {
       name = "Departure Mono NerdFont 11";
     };
+  };
+
+  home.sessionVariables = {
+    GTK_THEME = "gruvbox-dark";
+    XCURSOR_THEME = "Adwaita";
+    XCURSOR_SIZE = "24";
+    HYPRCURSOR_THEME = "Adwaita";
+    HYPRCURSOR_SIZE = "24";
   };
 
   # Ensure GTK 4 apps (like gnome-text-editor, nautilus) use the same theme

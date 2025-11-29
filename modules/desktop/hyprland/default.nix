@@ -10,6 +10,7 @@
       XDG_SESSION_TYPE="wayland";
       XDG_SESSION_DESKTOP="Hyprland";
     };
+
     sessionVariables = {
       QT_QPA_PLATFORM = "wayland";
       QT_QPA_PLATFORMTHEME = "gtk3";
@@ -19,12 +20,8 @@
       GDK_BACKEND = "wayland";
       WLR_NO_HARDWARE_CURSORS = "1";
       MOZ_ENABLE_WAYLAND = "1";
-
-      HYPRCURSOR_THEME = "Adwaita";
-      HYPRCURSOR_SIZE = "24";
-      XCURSOR_THEME = "Adwaita";
-      XCURSOR_SIZE = "24";
     };
+
     systemPackages = with pkgs; [
       nerd-fonts.departure-mono
       font-awesome
@@ -51,5 +48,6 @@
       enable = true;
     };
   };
+
   programs.light.enable = true;
 }
