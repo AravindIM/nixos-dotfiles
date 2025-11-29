@@ -72,5 +72,8 @@ echo
 printf "%s" "${USERPW}" | mkpasswd -m SHA-512 -s | sudo tee /mnt/persist/passwords/${USERNAME}
 sudo chmod 600 /mnt/persist/passwords/${USERNAME}
 UUID=$(blkid -s UUID -o value ${DISK}${ROOT_PARTITION})
-sed -i '/cryptroot[[:space:]]*=[[:space:]]*{/,/}/ s|/dev/disk/by-uuid/[^"]*|/dev/disk/by-uuid/'"$UUID"'|' hosts/thinkpad/hardware-configuration.nix
+sudo dd if=/dev/urandom of=/persist/etc/cryptkey/cryptlvm.keyfile bs=512 count=4 iflag=fullblock
+sudo chmod 000 /persist/etc/cryptkey/cryptlvm.keyfile
+sudo cryptsetup luksAddKey "/dev/disk/by-uuid/${UUID}" /persist/etc/cryptkey/cryptlvm.keyfile
+sed -i '/cryptroot[[:space:]]*=[[:space:]]*{/,/}/ s|/dev/disk/by-uuid/[^"]*|/dev/disk/by-uuid/'"${UUID}"'|' hosts/thinkpad/hardware-configuration.nix
 sudo nixos-install --flake .#thinkpad

@@ -23,15 +23,22 @@
     initrd = {
       availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
       kernelModules = [ "dm-snapshot" "cryptd"];
+      secrets = {
+        "/etc/cryptkey/cryptlvm.keyfile" = /persist/etc/cryptkey/cryptlvm.keyfile;
+      };
       luks.devices = {
         cryptroot = {
           device = "/dev/disk/by-uuid/56ad7a2c-fc86-4f87-9c46-20dfb3cc34c6";
+          keyFile = "/etc/cryptkey/cryptlvm.keyfile";
+          preLVM = true;
+          allowDiscards = true;
         };
       };
     };
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
     supportedFilesystems = [ "btrfs" ];
+    kernelParams = [ "cryptkey=rootfs:/etc/cryptkey/cryptlvm.keyfile" ];
   };
 
   fileSystems."/" = {
