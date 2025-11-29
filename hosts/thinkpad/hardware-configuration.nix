@@ -34,11 +34,15 @@
           allowDiscards = true;
         };
       };
+      systemd.enable = true;
     };
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
     supportedFilesystems = [ "btrfs" ];
-    kernelParams = [ "cryptkey=rootfs:/etc/cryptkey/cryptlvm.keyfile" ];
+    kernelParams = [
+      "cryptkey=rootfs:/etc/cryptkey/cryptlvm.keyfile"
+      "resume=${(builtins.head config.swapDevices).device}"
+    ];
   };
 
   fileSystems."/" = {

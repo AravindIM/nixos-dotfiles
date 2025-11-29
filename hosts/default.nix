@@ -14,6 +14,7 @@
              "/var/lib/systemd/coredump"
              "/var/lib/systemd/timers"
              "/etc/NetworkManager/system-connections"
+             "/var/cache/tuigreet"
            ];
            files = [
              "/etc/machine-id"

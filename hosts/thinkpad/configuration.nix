@@ -70,7 +70,13 @@
   # Enable sound.
   # sound.enable = true;
   services.pulseaudio.enable = false;
+  services.udev.extraRules = ''
+    SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="${pkgs.systemd}/bin/systemctl hibernate"
+  '';
   security.rtkit.enable = true;
+  security.sudo.extraConfig = ''
+    Defaults lecture = "never"
+  '';
   services.pipewire = {
     enable = true;
     alsa.enable = true;
