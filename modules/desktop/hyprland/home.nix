@@ -222,6 +222,7 @@ in
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConf;
 
   home.packages = with pkgs; [
+    hyprpolkitagent
     pamixer
     light
   ];
