@@ -52,6 +52,7 @@
               ".ssh"
               ".zen"
               ".local/share/nvim"
+              ".local/share/zsh"
               "Documents"
               "Downloads"
               "Music"
@@ -64,7 +65,6 @@
               ".gitconfig"
               ".config/waypaper/config.ini"
               ".config/nvim/lazy-lock.json"
-              ".local/share/zsh/history"
             ];
           };
         };

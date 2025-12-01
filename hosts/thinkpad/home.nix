@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ...}:
 {
   home.username = "aim";
   home.homeDirectory = "/home/aim";
@@ -8,7 +8,9 @@
     htop
     git
     neofetch
-    gcc
+    (lib.hiPrio gcc)
+    clang
+    clang-tools
     go
     nodejs
     zip
