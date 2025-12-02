@@ -11,6 +11,8 @@
     (lib.hiPrio gcc)
     clang
     clang-tools
+    gnumake
+    hexedit
     go
     nodejs
     zip
