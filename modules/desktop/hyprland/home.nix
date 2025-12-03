@@ -99,7 +99,7 @@ let
     bind=${mainMod} SHIFT,K,movewindow,u
     bind=${mainMod} SHIFT,J,movewindow,d
 
-    bind=${mainMod},SPACE,togglesplit
+    bind=${mainMod},SPACE,layoutmsg,togglesplit
 
     bind=${mainMod},1,workspace,1
     bind=${mainMod},2,workspace,2
@@ -198,6 +198,7 @@ let
 
     dwindle {
       pseudotile=false
+      preserve_split=true
       force_split=2
     }
 
