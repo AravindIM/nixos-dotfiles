@@ -13,6 +13,8 @@
     clang-tools
     gnumake
     hexedit
+    bison
+    flex
     go
     nodejs
     zip
