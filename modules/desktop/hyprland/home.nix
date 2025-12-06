@@ -20,6 +20,7 @@ let
   screenshot = "${pkgs.hyprshot}/bin/hyprshot -m region -z";
   clipboard = "${pkgs.cliphist}/bin/cliphist list | ${pkgs.rofi}/bin/rofi -dmenu | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy";
   clipboardClear = "${pkgs.cliphist}/bin/cliphist wipe";
+  idle = "${pkgs.hypridle}/bin/hypridle";
   workspaces = ''
       monitor=,preferred,auto,1.25
     '';
@@ -42,7 +43,7 @@ let
     exec-once=xdph
     exec-once=${polkit}
     exec-once=${notificationDaemon}
-    exec-once=hypridle
+    exec-once=${idle}
     exec-once=${clipboardManager}
     exec-once=${bar}
     exec-once=blueman-applet
