@@ -35,6 +35,7 @@
       waypaper
       hyprpolkitagent
       hyprutils
+      hypridle
       waypaper
       swww
       hyprcursor
