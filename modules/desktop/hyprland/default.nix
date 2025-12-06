@@ -36,6 +36,8 @@
       hyprpolkitagent
       hyprutils
       hypridle
+      playerctl
+      pavucontrol
       waypaper
       swww
       hyprcursor
