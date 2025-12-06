@@ -220,6 +220,7 @@ in
     ../../programs/rofi/rofi.nix
     ../../programs/alacritty/alacritty.nix
     ../../programs/hyprlock/hyprlock.nix
+    ../../programs/hypridle/hypridle.nix
   ];
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConf;
 

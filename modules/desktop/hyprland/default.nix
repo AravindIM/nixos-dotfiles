@@ -35,7 +35,6 @@
       waypaper
       hyprpolkitagent
       hyprutils
-      hypridle
       playerctl
       pavucontrol
       waypaper
