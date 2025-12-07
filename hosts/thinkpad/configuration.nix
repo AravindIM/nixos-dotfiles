@@ -157,6 +157,7 @@
     file
     tree
     tuigreet
+    man-pages
   ];
 
   environment.pathsToLink = [ "/share/zsh" ];
