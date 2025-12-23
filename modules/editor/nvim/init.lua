@@ -795,19 +795,12 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'maxmx03/solarized.nvim',
-    branch = 'main',
-    lazy = false,
-    priority = 1000,
-    name = 'solarized',
-    main = 'solarized',
-    ---@type solarized.Config
-    opts = {},
-    config = function(_, opts)
-      vim.o.termguicolors = true
-      vim.o.background = 'dark' -- dark background
-      require('solarized').setup(opts) -- plugin config
-      vim.cmd.colorscheme 'solarized' -- match the chosen theme
+    'morhetz/gruvbox',
+    name = 'gruvbox',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    config = function()
+      vim.cmd.colorscheme 'gruvbox'
+      vim.opt.cursorline = true
     end,
   },
 
