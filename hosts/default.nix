@@ -51,6 +51,7 @@
               ".gnupg"
               ".ssh"
               ".zen"
+              ".config/nvim"
               ".local/share/nvim"
               ".local/share/zsh"
               "Documents"
@@ -64,7 +65,6 @@
               ".wallpaper.jpg"
               ".gitconfig"
               ".config/waypaper/config.ini"
-              ".config/nvim/lazy-lock.json"
             ];
           };
         };
